@@ -26,6 +26,21 @@ export default function initMap(ymaps, containerId) {
   });
   myMap.geoObjects.add(objectManager);
 
+  objectManager.clusters.events.add('add', function (e) {
+    var cluster = objectManager.clusters.getById(e.get('objectId')),
+      objects = cluster.properties.geoObjects;
+
+    function isDefective (object) {
+      return object.isActive === false;
+    }
+
+    if (objects.some(isDefective)) {
+      objectManager.clusters.setClusterOptions(cluster.id, {
+        preset: 'islands#orangeClusterIcons'
+      });
+    }
+  });
+
   // details
   objectManager.objects.events.add('click', event => {
     const objectId = event.get('objectId');
