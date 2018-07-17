@@ -18,11 +18,13 @@ export default function initMap(ymaps, containerId) {
     geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
   });
 
+  // objectManager.objects.options.set('preset', 'islands#greenDotIcon');
   objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
 
   loadList().then(data => {
     objectManager.add(data);
   });
+  myMap.geoObjects.add(objectManager);
 
   // details
   objectManager.objects.events.add('click', event => {
