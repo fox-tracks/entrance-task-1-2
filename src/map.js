@@ -1,6 +1,7 @@
 import { loadList, loadDetails } from './api';
 import { getDetailsContentLayout } from './details';
 import { createFilterControl } from './filter';
+import { getObjectPreset } from './mappers';
 
 export default function initMap(ymaps, containerId) {
   const myMap = new ymaps.Map(containerId, {
@@ -13,33 +14,15 @@ export default function initMap(ymaps, containerId) {
     gridSize: 64,
     clusterIconLayout: 'default#pieChart',
     clusterDisableClickZoom: false,
-    geoObjectOpenBalloonOnClick: false,
+    geoObjectOpenBalloonOnClick: true,
     geoObjectHideIconOnBalloonOpen: false,
     geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
   });
-
-  // objectManager.objects.options.set('preset', 'islands#greenDotIcon');
-  objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
 
   loadList().then(data => {
     objectManager.add(data);
   });
   myMap.geoObjects.add(objectManager);
-
-  objectManager.clusters.events.add('add', function (e) {
-    var cluster = objectManager.clusters.getById(e.get('objectId')),
-      objects = cluster.properties.geoObjects;
-
-    function isDefective (object) {
-      return object.isActive === false;
-    }
-
-    if (objects.some(isDefective)) {
-      objectManager.clusters.setClusterOptions(cluster.id, {
-        preset: 'islands#orangeClusterIcons'
-      });
-    }
-  });
 
   // details
   objectManager.objects.events.add('click', event => {
