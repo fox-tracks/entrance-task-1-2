@@ -1,7 +1,6 @@
 import { loadList, loadDetails } from './api';
 import { getDetailsContentLayout } from './details';
 import { createFilterControl } from './filter';
-import { getObjectPreset } from './mappers';
 
 export default function initMap(ymaps, containerId) {
   const myMap = new ymaps.Map(containerId, {
@@ -14,7 +13,7 @@ export default function initMap(ymaps, containerId) {
     gridSize: 64,
     clusterIconLayout: 'default#pieChart',
     clusterDisableClickZoom: false,
-    geoObjectOpenBalloonOnClick: true,
+    geoObjectOpenBalloonOnClick: false,
     geoObjectHideIconOnBalloonOpen: false,
     geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
   });
