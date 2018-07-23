@@ -13,8 +13,8 @@ export default function initMap(ymaps, containerId) {
     gridSize: 64,
     clusterIconLayout: 'default#pieChart',
     clusterDisableClickZoom: false,
-    geoObjectOpenBalloonOnClick: false,
-    geoObjectHideIconOnBalloonOpen: false,
+    geoObjectOpenBalloonOnClick: false, // отмена автоматического открытия балуна на объекте 
+    geoObjectHideIconOnBalloonOpen: false, // открываем балун не скрывая метку
     geoObjectBalloonContentLayout: getDetailsContentLayout(ymaps)
   });
 
@@ -30,7 +30,7 @@ export default function initMap(ymaps, containerId) {
 
     objectManager.objects.balloon.open(objectId);
 
-    if (!obj.properties.details) {
+      if (!obj.properties.details) {
       loadDetails(objectId).then(data => {
         obj.properties.details = data;
         objectManager.objects.balloon.setData(obj);
