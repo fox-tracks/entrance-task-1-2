@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "test": "eslint \"**/*.js\"",
+    "fix": "eslint --fix \"**/*.js\""
   },
   "devDependencies": {
+    "eslint": "^5.3.0",
     "faker": "^4.1.0",
     "webpack": "^4.16.0",
     "webpack-cli": "^3.0.8",
